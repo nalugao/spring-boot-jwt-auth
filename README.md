@@ -14,6 +14,8 @@ This project demonstrates how to implement JWT (JSON Web Token) authentication i
 - Spring Boot
 - Spring Security
 - JWT (Java JSON Web Token)
+- PostgreSQL
+- JPA / Hibernate
 
 ## Installation
 1. Clone the repository:
@@ -34,33 +36,43 @@ This project demonstrates how to implement JWT (JSON Web Token) authentication i
   - Change the JWT secret and expiration time as needed.
 
 ## API Endpoints
-| Method | Endpoint                  | Description                      |
-|--------|---------------------------|----------------------------------|
-| POST   | /api/auth/register        | Register a new user             |
-| POST   | /api/auth/login           | Authenticate user and return JWT |
-| GET    | /api/protected            | Secured endpoint (requires JWT) |
 
-## Usage
-- Use an API client like Postman to test the endpoints.
-- Include the JWT token in the Authorization header for secured endpoints:
-  ```bash
-  Authorization: Bearer <your_token>
-  ```
+| Method | Endpoint         | Description                      |
+|--------|------------------|----------------------------------|
+| POST   | /auth/register   | Register a new user              |
+| POST   | /auth/login      | Authenticate user and return JWT |
 
-## Contributing
-- Fork the repository.
-- Create a new branch for your feature:
-  ```bash
-  git checkout -b feature/your-feature
-  ```
-- Commit your changes and push to the branch:
-  ```bash
-  git push origin feature/your-feature
-  ```
-- Open a pull request.
+### Register
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+```json
+POST /auth/register
+{
+  "username": "your_username",
+  "password": "123456"
+}
+```
 
-## Contact
-For any questions, please reach out to [nalugao](https://github.com/nalugao).
+### Login
+
+```json
+POST /auth/login
+{
+  "username": "your_username",
+  "password": "123456"
+}
+```
+
+**Response:**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9..."
+}
+```
+
+### Using the token
+
+Include the token in the `Authorization` header for protected routes:
+
+```
+Authorization: Bearer <your_token>
+```
